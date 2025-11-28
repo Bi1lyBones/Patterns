@@ -1,0 +1,23 @@
+{
+  "name": "patternstesting",
+  "version": "1.0.0",
+  "description": "A project to demonstrate design patterns in TypeScript.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc --watch"
+  },
+  "keywords": [
+    "typescript",
+    "singleton",
+    "factory",
+    "design-patterns"
+  ],
+  "author": "Ваше Имя",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}
