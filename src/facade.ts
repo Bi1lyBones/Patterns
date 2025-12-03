@@ -1,22 +1,36 @@
-//Система классов (FirstClass и SecondClass)
-export class FirstClass {
-  method(): string {
-    return "Применение метода из FirstClass";
+class Engine {
+  engineOn(): void {
+    console.log("Двигатель запущен");
+  }
+  engineOff(): void {
+    console.log("Двигатель выключен");
   }
 }
 
-export class SecondClass {
-  method(value: string): string {
-    return value; // метод возвращает переданное значение
+class Electricity {
+  electricityOn(): void {
+    console.log("Электричество включено");
+  }
+  electricityOff(): void {
+    console.log("Электричество выключено");
   }
 }
 
-//упрощаем вызов методов из классов FirstClass и SecondClass с помощью Facade
-export class Facade {
-  FirstClass(): string {
-    return new FirstClass().method();
+class Facade {
+  private engine: Engine;
+  private electricity: Electricity;
+
+  constructor() {
+    this.engine = new Engine();
+    this.electricity = new Electricity();
   }
-  SecondClass(value: string): string {
-    return new SecondClass().method(value);
+
+  carStart(): void {
+    this.electricity.electricityOn();
+    this.engine.engineOn();
   }
 }
+
+const facade = new Facade();
+
+facade.carStart();

@@ -1,32 +1,34 @@
-//определение интерфейса для реализации методов классов
-export interface Transport {
-  deliver(): void;
-}
-
-//Классы Truck и Ship реализуют метод deliver() за счет имплементации.
-
-export class Truck implements Transport {
-  public deliver(): void {
-    console.log("Доставка будет совершена с помощью грузовика");
+class CountryCdDisk {
+  public diskType(): void {
+    console.log(`Вы заказали CD Диск с жанром Country`);
   }
 }
 
-export class Ship implements Transport {
-  public deliver(): void {
-    console.log("Доставка будет совершена с помощью корабля");
+class JazzCdDisk {
+  public diskType(): void {
+    console.log(`Вы заказали CD Диск с жанром Jazz`);
   }
 }
 
-//Класс для создания объектов классов Truck и Ship
+class HipHopCdDisk {
+  public diskType(): void {
+    console.log(`Вы заказали CD Диск с жанром HipHop`);
+  }
+}
 
-export class TransportFactory {
-  public static createTransport(transportType: string): Transport | null {
-    if (transportType === "truck") {
-      return new Truck();
+class CdDisk {
+  public createCdDisk(genreType: "country" | "jazz" | "hiphop") {
+    if (genreType === "country") {
+      return new CountryCdDisk();
     }
-    if (transportType === "ship") {
-      return new Ship();
+    if (genreType === "jazz") {
+      return new JazzCdDisk();
     }
-    return null;
+    if (genreType === "hiphop") {
+      return new HipHopCdDisk();
+    }
   }
 }
+
+const disk = new CdDisk();
+disk.createCdDisk("country");

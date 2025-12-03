@@ -1,33 +1,47 @@
-//определение интерфейса для реализации методов классов
-export interface PaymentStrategy {
-  pay(amount: number): void;
+interface PaymentStrategy {
+  process(amount: number): string;
 }
 
-//Алгоритмы выполняющие схожую задачу (класс CreditCardPayment и PayPalPayment)
-export class CreditCardPayment implements PaymentStrategy {
-  pay(amount: number): void {
-    console.log(`Оплата ${amount}$ с помощью кредитной карты`);
+class CreditCardPayment implements PaymentStrategy {
+  process(amount: number): string {
+    return `Оплата ${amount} с помощью кредитки`;
   }
 }
 
-export class PayPalPayment implements PaymentStrategy {
-  pay(amount: number): void {
-    console.log(`Оплата ${amount}$ с помощью PayPal`);
+class PayPalPayment implements PaymentStrategy {
+  process(amount: number): string {
+    return `Оплата ${amount} с помощью Пэйпал`;
   }
 }
 
-export class ShoppingCart {
-  private items: number = 0; //константа для хранения количества товаров в корзине
-  constructor(private paymentStrategy: PaymentStrategy) {} // конструктор для реализации интерфейса PaymentStrategy в пределах класса
-
-  //метод для увеличения количества товаров
-  addItem(): void {
-    this.items++;
-  }
-  // метод для вычисления общей суммы и инициализации процесса оплаты
-  checkout(): void {
-    const totalAmount = this.items * 10;
-    console.log(`Итого: ${totalAmount}$`);
-    this.paymentStrategy.pay(totalAmount);
+class CryptoPayment implements PaymentStrategy {
+  process(amount: number): string {
+    return `Оплата ${amount} с помощью Криптовалюты`;
   }
 }
+
+class PaymentProcessor {
+  private strategy: PaymentStrategy;
+
+  constructor(strategy: PaymentStrategy) {
+    this.strategy = strategy;
+  }
+
+  setStrategy(strategy: PaymentStrategy) {
+    this.strategy = strategy;
+  }
+
+  processPayment(amount: number): string {
+    return this.strategy.process(amount);
+  }
+}
+
+const amount = 50;
+const creditCard = new CreditCardPayment();
+const processor = new PaymentProcessor(creditCard);
+
+console.log(processor.processPayment(amount));
+
+const payPal = new PayPalPayment();
+processor.setStrategy(payPal);
+console.log(processor.processPayment(amount));

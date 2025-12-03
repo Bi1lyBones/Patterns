@@ -1,41 +1,36 @@
-export interface Subject {
-  operationOne(): void;
-  operationTwo(): void;
+interface newCar {
+  drive(): void;
+  driveRight(): void;
 }
 
-export class ConcreteSubject implements Subject {
-  operationOne(): void {
-    console.log("Выполнение первой операции");
+class Car implements newCar {
+  drive(): void {
+    console.log("Машина едет");
   }
 
-  operationTwo(): void {
-    console.log("Выполнение второй операции");
-  }
-}
-
-export abstract class Decorator implements Subject {
-  protected subject: Subject;
-
-  constructor(subject: Subject) {
-    this.subject = subject;
-  }
-
-  operationOne(): void {
-    this.subject.operationOne();
-  }
-
-  operationTwo(): void {
-    this.subject.operationTwo();
+  driveRight(): void {
+    console.log("Машина поворачивает");
   }
 }
 
-export class ConcreteDecorator extends Decorator {
-  constructor(subject: Subject) {
-    super(subject);
+class CarDecorator implements newCar {
+  protected car: newCar;
+
+  constructor(car: newCar) {
+    this.car = car;
   }
 
-  public operationOne(): void {
-    this.subject.operationOne();
-    console.log("Выполнение дополнительной операции в ConcreteDecorator");
+  drive(): void {
+    this.car.drive();
+  }
+
+  driveRight(): void {
+    this.car.driveRight();
+    console.log("... + включается парктроник");
   }
 }
+
+const usualCar = new Car();
+const newCar = new CarDecorator(usualCar);
+
+newCar.driveRight();

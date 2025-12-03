@@ -1,34 +1,24 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ConcreteDecorator = exports.Decorator = exports.ConcreteSubject = void 0;
-class ConcreteSubject {
-    operationOne() {
-        console.log("Выполнение первой операции");
+class Car {
+    drive() {
+        console.log("Машина едет");
     }
-    operationTwo() {
-        console.log("Выполнение второй операции");
+    driveRight() {
+        console.log("Машина поворачивает");
     }
 }
-exports.ConcreteSubject = ConcreteSubject;
-class Decorator {
-    constructor(subject) {
-        this.subject = subject;
+class CarDecorator {
+    constructor(car) {
+        this.car = car;
     }
-    operationOne() {
-        this.subject.operationOne();
+    drive() {
+        this.car.drive();
     }
-    operationTwo() {
-        this.subject.operationTwo();
-    }
-}
-exports.Decorator = Decorator;
-class ConcreteDecorator extends Decorator {
-    constructor(subject) {
-        super(subject);
-    }
-    operationOne() {
-        this.subject.operationOne();
-        console.log("Выполнение дополнительной операции в ConcreteDecorator");
+    driveRight() {
+        this.car.driveRight();
+        console.log("... + включается парктроник");
     }
 }
-exports.ConcreteDecorator = ConcreteDecorator;
+const usualCar = new Car();
+const newCar = new CarDecorator(usualCar);
+newCar.driveRight();

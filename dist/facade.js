@@ -1,26 +1,29 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Facade = exports.SecondClass = exports.FirstClass = void 0;
-//Система классов (FirstClass и SecondClass)
-class FirstClass {
-    method() {
-        return "Применение метода из FirstClass";
+class Engine {
+    engineOn() {
+        console.log("Двигатель запущен");
+    }
+    engineOff() {
+        console.log("Двигатель выключен");
     }
 }
-exports.FirstClass = FirstClass;
-class SecondClass {
-    method(value) {
-        return value; // метод возвращает переданное значение
+class Electricity {
+    electricityOn() {
+        console.log("Электричество включено");
+    }
+    electricityOff() {
+        console.log("Электричество выключено");
     }
 }
-exports.SecondClass = SecondClass;
-//упрощаем вызов методов из классов FirstClass и SecondClass с помощью Facade
 class Facade {
-    FirstClass() {
-        return new FirstClass().method();
+    constructor() {
+        this.engine = new Engine();
+        this.electricity = new Electricity();
     }
-    SecondClass(value) {
-        return new SecondClass().method(value);
+    carStart() {
+        this.electricity.electricityOn();
+        this.engine.engineOn();
     }
 }
-exports.Facade = Facade;
+const facade = new Facade();
+facade.carStart();

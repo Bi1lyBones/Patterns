@@ -1,29 +1,31 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.TransportFactory = exports.Ship = exports.Truck = void 0;
-//Классы Truck и Ship реализуют метод deliver() за счет имплементации.
-class Truck {
-    deliver() {
-        console.log("Доставка будет совершена с помощью грузовика");
+class CountryCdDisk {
+    diskType() {
+        console.log(`Вы заказали CD Диск с жанром Country`);
     }
 }
-exports.Truck = Truck;
-class Ship {
-    deliver() {
-        console.log("Доставка будет совершена с помощью корабля");
+class JazzCdDisk {
+    diskType() {
+        console.log(`Вы заказали CD Диск с жанром Jazz`);
     }
 }
-exports.Ship = Ship;
-//Класс для создания объектов классов Truck и Ship
-class TransportFactory {
-    static createTransport(transportType) {
-        if (transportType === "truck") {
-            return new Truck();
+class HipHopCdDisk {
+    diskType() {
+        console.log(`Вы заказали CD Диск с жанром HipHop`);
+    }
+}
+class CdDisk {
+    createCdDisk(genreType) {
+        if (genreType === "country") {
+            return new CountryCdDisk();
         }
-        if (transportType === "ship") {
-            return new Ship();
+        if (genreType === "jazz") {
+            return new JazzCdDisk();
         }
-        return null;
+        if (genreType === "hiphop") {
+            return new HipHopCdDisk();
+        }
     }
 }
-exports.TransportFactory = TransportFactory;
+const disk = new CdDisk();
+disk.createCdDisk("country");
